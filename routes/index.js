@@ -43,7 +43,8 @@ router.get('/', async function(req, res, next) {
     title: 'WJT-Express-template',
     img: '/images/logo.png',
     result:arr,
-    message
+    message,
+    href:"/users"
   }
 
   res.render('index', data);
