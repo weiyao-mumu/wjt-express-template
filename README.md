@@ -31,3 +31,6 @@ await mysqlFind('SELECT * FROM user',function (r) {
 >mysqlUpdate 改,
 >mysqlDelete 删
 
+### Token
+
+加入了Token,封装了Token函数,更符合前后端分离的特点。

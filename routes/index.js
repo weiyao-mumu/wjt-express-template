@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-let userController = require('../redis/controller/UserController');
 let {mysqlFind,mysqlInsert,mysqlUpdate,mysqlDelete} = require('../mysql/models/API');
+let {jwtSign,jwtverify} = require('../Token/init');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   //使用redis的的封装
@@ -39,19 +39,30 @@ router.get('/', async function(req, res, next) {
   ];
   let message = `该模板实现了redis,mysql,mongodb的一系列封装,并支持动态开启,自定义404页面,
     致力于业务的开发,只用一行代码解决配置的复杂度`;
-  const data = {
-    title: 'WJT-Express-template',
-    img: '/images/logo.png',
-    result:arr,
-    message,
-    href:"/users"
-  }
+  jwtSign({username:'123',password:'2wdn'}).then(token =>{
 
-  res.render('index', data);
+    console.log(token)
+    jwtverify(token).then(v=>{
+      console.log(v);
+      const data = {
+        title: 'WJT-Express-template',
+        img: '/images/logo.png',
+        result:arr,
+        message,
+        href:"/users",
+        token,
+        v
+      }
+      res.render('index', data);
+    });
+  })
+
 
 
 
 
 });
+
+
 
 module.exports = router;
